@@ -1,11 +1,13 @@
 package com.projeto.veiculos.controller;
 
-import com.projeto.veiculos.dto.UsuarioRequestDto;
+import com.projeto.veiculos.dto.MarcasDto;
 import com.projeto.veiculos.dto.VeiculoRequestDto;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 import com.projeto.veiculos.repository.UsuarioRepository;
 import com.projeto.veiculos.repository.VeiculoRepository;
+import com.projeto.veiculos.servico.Fipe;
+import com.projeto.veiculos.servico.FipeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,9 @@ public class VeiculoController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private Fipe fipeService;
 
     @PostMapping
     public ResponseEntity<?> Adicionar(@Valid @RequestBody VeiculoRequestDto form, UriComponentsBuilder uriBuilder) {
@@ -48,5 +53,11 @@ public class VeiculoController {
         return veiculoRepository.findAll();
     }
 
+    @GetMapping("/{tipoVeiculo}")
+    public ResponseEntity<List<MarcasDto>> getTipoVeiculo(@PathVariable String tipoVeiculo) {
 
+        List<MarcasDto> fipe = fipeService.buscaDadosFipe(tipoVeiculo);
+
+        return fipe != null ? ResponseEntity.ok().body(fipe) : ResponseEntity.notFound().build();
+    }
 }
