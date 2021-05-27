@@ -1,5 +1,7 @@
 package com.projeto.veiculos.servico;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public class FipeResponse {
     /*
         Valor: "R$ 99.197,00"
@@ -13,17 +15,26 @@ public class FipeResponse {
         SiglaCombustivel: "D"
      */
 
-    private Double valor;
+    @JsonAlias("Valor")
+    private String valor;
+    @JsonAlias("Marca")
     private String marca;
+    @JsonAlias("Modelo")
     private String modelo;
-    private String AnoModelo;
+    @JsonAlias("AnoModelo")
+    private String anoModelo;
+    @JsonAlias("Combustivel")
     private String combustivel;
+    @JsonAlias("CodigoFipe")
     private String codigoFipe;
-    private String mesRef;
-    private Integer tipoVeiculo;
-    private String siglaCumbustivel;
+    @JsonAlias("MesReferencia")
+    private String mesReferencia;
+    @JsonAlias("TipoVeiculo")
+    private String tipoVeiculo;
+    @JsonAlias("SiglaCombustivel")
+    private String siglaCombustivel;
 
-    public Double getValor() {
+    public String getValor() {
         return valor;
     }
 
@@ -36,7 +47,7 @@ public class FipeResponse {
     }
 
     public String getAnoModelo() {
-        return AnoModelo;
+        return anoModelo;
     }
 
     public String getCombustivel() {
@@ -47,15 +58,15 @@ public class FipeResponse {
         return codigoFipe;
     }
 
-    public String getMesRef() {
-        return mesRef;
+    public String getMesReferencia() {
+        return mesReferencia;
     }
 
-    public Integer getTipoVeiculo() {
+    public String getTipoVeiculo() {
         return tipoVeiculo;
     }
 
-    public String getSiglaCumbustivel() {
-        return siglaCumbustivel;
+    public String getSiglaCombustivel() {
+        return siglaCombustivel;
     }
 }

@@ -53,11 +53,24 @@ public class VeiculoController {
         return veiculoRepository.findAll();
     }
 
+    /*
     @GetMapping("/{tipoVeiculo}")
     public ResponseEntity<List<MarcasDto>> getTipoVeiculo(@PathVariable String tipoVeiculo) {
 
         List<MarcasDto> fipe = fipeService.buscaDadosFipe(tipoVeiculo);
 
+        return fipe != null ? ResponseEntity.ok().body(fipe) : ResponseEntity.notFound().build();
+    }
+
+     */
+
+    @GetMapping("/{tipoVeiculo}/marcas/{codigoMarca}/modelos/{codigoModelo}/anos/{ano}")
+    public ResponseEntity<FipeResponse> getVeiculo( @PathVariable String tipoVeiculo,
+                                                           @PathVariable String codigoMarca,
+                                                           @PathVariable String codigoModelo,
+                                                           @PathVariable String ano) {
+        System.out.println(tipoVeiculo + codigoMarca + codigoModelo + ano);
+        FipeResponse fipe = fipeService.buscaDadosFipe(tipoVeiculo, codigoMarca, codigoModelo, ano );
         return fipe != null ? ResponseEntity.ok().body(fipe) : ResponseEntity.notFound().build();
     }
 }
