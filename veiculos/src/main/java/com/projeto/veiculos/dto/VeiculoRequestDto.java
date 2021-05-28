@@ -24,12 +24,12 @@ public class VeiculoRequestDto {
     private Integer ano;
  //   @NotBlank
  //   private String codigoAno;
-    //@NotBlank
-    private String valor;
+//    @NotBlank
+//    private String valor;
     @NotBlank
     private String combustivel;
 
-    public Veiculo toVeiculo(){
+    public Veiculo toVeiculo(String valor){
         return new Veiculo(marca, modelo, ano, combustivel, valor);
     }
 
@@ -49,20 +49,12 @@ public class VeiculoRequestDto {
         return tipoVeiculo;
     }
 
-    public String getValor() {
-        return valor;
-    }
-
     public String getCombustivel() {
         return combustivel;
     }
 
     public Long getIdProprietario() {
         return idProprietario;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
     }
 
     public void setCombustivel(String combustivel) {

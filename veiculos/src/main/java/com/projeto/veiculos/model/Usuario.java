@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -21,6 +22,8 @@ public class Usuario {
     private String cpf;
     @Column(nullable = false) @Past
     private LocalDate dataNascimento;
+    @OneToMany(mappedBy = "proprietario")
+    private List<Veiculo> veiculos;
 
     /**
      * Hibernate only
@@ -54,5 +57,9 @@ public class Usuario {
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
+    }
+
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
     }
 }

@@ -2,6 +2,7 @@ package com.projeto.veiculos.controller;
 
 import com.projeto.veiculos.dto.MarcasModelosDto;
 import com.projeto.veiculos.dto.VeiculoRequestDto;
+import com.projeto.veiculos.externo.Combustivel;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 import com.projeto.veiculos.repository.UsuarioRepository;
@@ -42,11 +43,11 @@ public class VeiculoController {
          * buscar valor FIPE
          */
 
+        System.out.println(Combustivel.GASOLINA);
         FipeResponse dadosVeidulo = fipeService.buscaDadosFipe(form.getTipoVeiculo(),form.getMarca(), form.getModelo(), form.getAno() + "-" + numCombustivel);
 
         //List<MarcasModelosDto> listCodigoMarca = fipeService.buscaDadosMarca(form.getTipoVeiculo());
-        form.setValor(dadosVeidulo.getValor());
-        Veiculo veiculo = form.toVeiculo();
+        Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor());
         Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
         if (possivelUsuario.isPresent()){
             veiculo.setProprietario(possivelUsuario.get());

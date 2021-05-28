@@ -32,6 +32,7 @@ public class Veiculo {
     @Transient
     private Boolean rodizioAtivo;
     @ManyToOne
+    //@JoinColumn(name="proprietario_id", nullable=false)
     private Usuario proprietario;
 
 
@@ -96,7 +97,15 @@ public class Veiculo {
     }
 
     public Boolean getRodizioAtivo() {
-        return rodizioAtivo;
+        return verificaRodizioAtivo();
+    }
+
+    public String getCombustivel() {
+        return combustivel;
+    }
+
+    public String getValor() {
+        return valor;
     }
 
     public void setProprietario(Usuario proprietario) {
