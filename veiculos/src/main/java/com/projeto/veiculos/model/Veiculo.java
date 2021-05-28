@@ -15,9 +15,19 @@ public class Veiculo {
     @Column(nullable = false)
     private String marca;
     @Column(nullable = false)
+//    private String codigoMarca;
+//    @Column(nullable = false)
     private String modelo;
+//  @Column(nullable = false)
+//  private String codigoModelo;
     @Column(nullable = false)
     private Integer ano;
+//    @Column(nullable = false)
+//    private String codigoAno;
+    @Column(nullable = false)
+    private String valor;
+    @Column(nullable = false)
+    private String combustivel;
     private String diaDoRodizio;
     @Transient
     private Boolean rodizioAtivo;
@@ -32,13 +42,16 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(String marca, String modelo, Integer ano) {
+    public Veiculo(String marca, String modelo, Integer ano, String combustivel, String valor) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
+        this.combustivel= combustivel;
+        this.valor = valor;
         diaDoRodizio = defineDiaRodizio(ano);
         rodizioAtivo= verificaRodizioAtivo();
     }
+
 
     private String defineDiaRodizio(Integer ano) {
         if (ano.toString().endsWith("0") || ano.toString().endsWith("1")  )   {
@@ -60,7 +73,7 @@ public class Veiculo {
     }
 
     private Boolean verificaRodizioAtivo(){
-       return diaDoRodizio.equals(LocalDate.now().getDayOfWeek().toString());
+        return diaDoRodizio.equals(LocalDate.now().getDayOfWeek().toString());
     }
     public Long getId() {
         return id;

@@ -69,4 +69,5 @@ public class FipeResponse {
     public String getSiglaCombustivel() {
         return siglaCombustivel;
     }
+
 }

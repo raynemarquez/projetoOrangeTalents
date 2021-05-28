@@ -1,6 +1,6 @@
 package com.projeto.veiculos.controller;
 
-import com.projeto.veiculos.dto.MarcasDto;
+import com.projeto.veiculos.dto.MarcasModelosDto;
 import com.projeto.veiculos.dto.VeiculoRequestDto;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
@@ -31,8 +31,21 @@ public class VeiculoController {
     @Autowired
     private Fipe fipeService;
 
+    private String numCombustivel;
+
     @PostMapping
     public ResponseEntity<?> Adicionar(@Valid @RequestBody VeiculoRequestDto form, UriComponentsBuilder uriBuilder) {
+
+        numCombustivel = buscaNumCombustivel(form.getCombustivel());
+
+        /*
+         * buscar valor FIPE
+         */
+
+        FipeResponse dadosVeidulo = fipeService.buscaDadosFipe(form.getTipoVeiculo(),form.getMarca(), form.getModelo(), form.getAno() + "-" + numCombustivel);
+
+        //List<MarcasModelosDto> listCodigoMarca = fipeService.buscaDadosMarca(form.getTipoVeiculo());
+        form.setValor(dadosVeidulo.getValor());
         Veiculo veiculo = form.toVeiculo();
         Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
         if (possivelUsuario.isPresent()){
@@ -42,10 +55,31 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
         }
 
+        //veiculo.setValor(dadosVeidulo.getValor());
+
         veiculoRepository.save(veiculo);
 
         URI uri = uriBuilder.path("/{id}").buildAndExpand(veiculo.getId()).toUri();
         return ResponseEntity.created(uri).body(veiculo);
+    }
+
+    private String buscaNumCombustivel(String nomeCombustivel) {
+        String nCombustivel;
+        switch (nomeCombustivel){
+            case "Gasolina":
+                nCombustivel="1";
+                break;
+            case "Etanol":
+                nCombustivel="2";
+                break;
+            case "Diesel":
+                nCombustivel="3";
+                break;
+            default:
+                nCombustivel="0";
+                break;
+        }
+        return  nCombustivel;
     }
 
     @GetMapping

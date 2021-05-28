@@ -1,6 +1,6 @@
 package com.projeto.veiculos.dto;
 
-public class MarcasDto {
+public class MarcasModelosDto {
     private String nome;
     private String codigo;
 
