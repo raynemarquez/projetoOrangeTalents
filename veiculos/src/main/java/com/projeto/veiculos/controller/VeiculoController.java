@@ -2,6 +2,7 @@ package com.projeto.veiculos.controller;
 
 import com.projeto.veiculos.dto.MarcasModelosDto;
 import com.projeto.veiculos.dto.VeiculoRequestDto;
+import com.projeto.veiculos.dto.VeiculoResponseDto;
 import com.projeto.veiculos.externo.Combustivel;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
@@ -49,11 +50,11 @@ public class VeiculoController {
         Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
         if (possivelUsuario.isEmpty()) return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
         Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor(), possivelUsuario.get());
-
+        VeiculoResponseDto veiculoResponse = new VeiculoResponseDto(veiculo);
         veiculoRepository.save(veiculo);
 
         URI uri = uriBuilder.path("/{id}").buildAndExpand(veiculo.getId()).toUri();
-        return ResponseEntity.created(uri).body(veiculo);
+        return ResponseEntity.created(uri).body(veiculoResponse);
     }
 
     private String buscaNumCombustivel(String nomeCombustivel) {
