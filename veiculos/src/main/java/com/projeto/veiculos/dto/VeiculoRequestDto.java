@@ -1,5 +1,6 @@
 package com.projeto.veiculos.dto;
 
+import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 
 import javax.persistence.*;
@@ -29,8 +30,8 @@ public class VeiculoRequestDto {
     @NotBlank
     private String combustivel;
 
-    public Veiculo toVeiculo(String valor){
-        return new Veiculo(marca, modelo, ano, combustivel, valor);
+    public Veiculo toVeiculo(String valor, Usuario usuario){
+        return new Veiculo(marca, modelo, ano, combustivel, valor, usuario);
     }
 
     public String getMarca() {

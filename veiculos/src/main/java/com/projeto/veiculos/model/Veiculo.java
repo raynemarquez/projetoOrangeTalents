@@ -43,7 +43,7 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(String marca, String modelo, Integer ano, String combustivel, String valor) {
+    public Veiculo(String marca, String modelo, Integer ano, String combustivel, String valor, Usuario usuario) {
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
@@ -51,6 +51,7 @@ public class Veiculo {
         this.valor = valor;
         diaDoRodizio = defineDiaRodizio(ano);
         rodizioAtivo= verificaRodizioAtivo();
+        proprietario = usuario;
     }
 
 
@@ -108,7 +109,4 @@ public class Veiculo {
         return valor;
     }
 
-    public void setProprietario(Usuario proprietario) {
-        this.proprietario = proprietario;
-    }
 }

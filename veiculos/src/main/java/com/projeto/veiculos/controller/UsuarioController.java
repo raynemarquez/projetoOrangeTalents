@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -40,6 +41,15 @@ public class UsuarioController {
     @GetMapping
     public List<Usuario> listar(){
         return usuarioRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity <Optional <Usuario>> listarPorId(@PathVariable Long id){
+        Optional <Usuario> usuario = usuarioRepository.findById(id);
+        if(usuario.isPresent()) {
+            return ResponseEntity.ok(usuario);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 

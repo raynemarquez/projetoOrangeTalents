@@ -46,17 +46,9 @@ public class VeiculoController {
         System.out.println(Combustivel.GASOLINA);
         FipeResponse dadosVeidulo = fipeService.buscaDadosFipe(form.getTipoVeiculo(),form.getMarca(), form.getModelo(), form.getAno() + "-" + numCombustivel);
 
-        //List<MarcasModelosDto> listCodigoMarca = fipeService.buscaDadosMarca(form.getTipoVeiculo());
-        Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor());
         Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
-        if (possivelUsuario.isPresent()){
-            veiculo.setProprietario(possivelUsuario.get());
-        }
-        else{
-            return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
-        }
-
-        //veiculo.setValor(dadosVeidulo.getValor());
+        if (possivelUsuario.isEmpty()) return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
+        Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor(), possivelUsuario.get());
 
         veiculoRepository.save(veiculo);
 
