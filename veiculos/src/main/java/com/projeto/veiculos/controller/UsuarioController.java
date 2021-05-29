@@ -32,10 +32,11 @@ public class UsuarioController {
         if (usuarioRepository.existsByEmail(usuario.getEmail())){
             return ResponseEntity.badRequest().body("Ja existe um cara com esse email");
         }
+
+        UsuarioResponseDto usuarioResponse = new UsuarioResponseDto(usuario);
         usuarioRepository.save(usuario);
 
         URI uri = uriBuilder.path("/{id}").buildAndExpand(usuario.getId()).toUri();
-        UsuarioResponseDto usuarioResponse = new UsuarioResponseDto(usuario);
         return ResponseEntity.created(uri).body(usuarioResponse);
     }
 

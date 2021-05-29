@@ -15,18 +15,10 @@ public class VeiculoRequestDto {
     private String tipoVeiculo;
     @NotBlank
     private String marca;
- //   @NotNull
- //   private Long codigoMarca;
     @NotBlank
     private String modelo;
- //   @NotBlank
- //   private String codigoModelo;
     @NotNull
     private Integer ano;
- //   @NotBlank
- //   private String codigoAno;
-//    @NotBlank
-//    private String valor;
     @NotBlank
     private String combustivel;
 

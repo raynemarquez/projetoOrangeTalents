@@ -10,7 +10,9 @@ import com.projeto.veiculos.repository.UsuarioRepository;
 import com.projeto.veiculos.repository.VeiculoRepository;
 import com.projeto.veiculos.servico.Fipe;
 import com.projeto.veiculos.servico.FipeResponse;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -44,17 +46,20 @@ public class VeiculoController {
          * buscar valor FIPE
          */
 
-        System.out.println(Combustivel.GASOLINA);
-        FipeResponse dadosVeidulo = fipeService.buscaDadosFipe(form.getTipoVeiculo(),form.getMarca(), form.getModelo(), form.getAno() + "-" + numCombustivel);
+        try {
+            FipeResponse dadosVeidulo = fipeService.buscaDadosFipe(form.getTipoVeiculo(),form.getMarca(), form.getModelo(), form.getAno() + "-" + numCombustivel);
+            Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
+            if (possivelUsuario.isEmpty()) return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
+            Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor(), possivelUsuario.get());
+            VeiculoResponseDto veiculoResponse = new VeiculoResponseDto(veiculo);
+            veiculoRepository.save(veiculo);
 
-        Optional<Usuario> possivelUsuario = usuarioRepository.findById(form.getIdProprietario());
-        if (possivelUsuario.isEmpty()) return ResponseEntity.badRequest().body("Não existe proprietário para o id : " + form.getIdProprietario());
-        Veiculo veiculo = form.toVeiculo(dadosVeidulo.getValor(), possivelUsuario.get());
-        VeiculoResponseDto veiculoResponse = new VeiculoResponseDto(veiculo);
-        veiculoRepository.save(veiculo);
-
-        URI uri = uriBuilder.path("/{id}").buildAndExpand(veiculo.getId()).toUri();
-        return ResponseEntity.created(uri).body(veiculoResponse);
+            URI uri = uriBuilder.path("/{id}").buildAndExpand(veiculo.getId()).toUri();
+            return ResponseEntity.created(uri).body(veiculoResponse);
+        }
+        catch (FeignException.NotFound erro){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Url da Fipe não encontrada");
+        }
     }
 
     private String buscaNumCombustivel(String nomeCombustivel) {

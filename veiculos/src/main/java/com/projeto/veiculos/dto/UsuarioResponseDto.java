@@ -20,7 +20,9 @@ public class UsuarioResponseDto {
         this.email = usuario.getEmail();
         this.cpf = usuario.getCpf();
         this.dataNascimento = usuario.getDataNascimento();
-        this.veiculos = toVeiculoResponseDtoList(usuario.getVeiculos());
+        if (usuario.getVeiculos() != null) {
+            this.veiculos = toVeiculoResponseDtoList(usuario.getVeiculos());
+        }
     }
 
     private List<VeiculoResponseDto> toVeiculoResponseDtoList(List<Veiculo> veiculos) {
