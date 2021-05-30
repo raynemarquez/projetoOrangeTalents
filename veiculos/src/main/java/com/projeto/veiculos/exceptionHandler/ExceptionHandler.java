@@ -29,7 +29,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 
         for (ObjectError error : ex.getBindingResult().getAllErrors()){
             //Casting do error para FielDError pra poder pegar o nome do campo ao inves do nome do objeto
-            String nome = ((FieldError)error).getField();
+            String nome = ((FieldError) error).getField();
             String mensagem = messageSource.getMessage(error, LocaleContextHolder.getLocale());
 
             campos.add(new Problema.Campo(nome, mensagem));

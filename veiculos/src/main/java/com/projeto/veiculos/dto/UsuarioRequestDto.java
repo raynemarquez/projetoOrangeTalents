@@ -1,10 +1,8 @@
 package com.projeto.veiculos.dto;
 
 import com.projeto.veiculos.model.Usuario;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
