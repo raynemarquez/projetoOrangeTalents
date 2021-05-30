@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,16 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<?> Adicionar(@Valid @RequestBody UsuarioRequestDto form, UriComponentsBuilder uriBuilder){
 
+        if(!form.getCpf().matches("^[0-9]{11}$")){
+            return ResponseEntity.badRequest().body("CPF deverá conter somente numeros");
+        }
+
         Usuario usuario = form.toUsuario();
         if (usuarioRepository.existsByCpf(usuario.getCpf())){
-            return ResponseEntity.badRequest().body("Ja existe um cara com esse cpf");
+            return ResponseEntity.badRequest().body("Já existe esse CPF cadastrado");
         }
         if (usuarioRepository.existsByEmail(usuario.getEmail())){
-            return ResponseEntity.badRequest().body("Ja existe um cara com esse email");
+            return ResponseEntity.badRequest().body("Ja existe esse email cadastrado");
         }
 
         UsuarioResponseDto usuarioResponse = new UsuarioResponseDto(usuario);
@@ -55,6 +60,4 @@ public class UsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
-
-
 }

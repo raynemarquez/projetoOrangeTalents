@@ -1,5 +1,6 @@
 package com.projeto.veiculos.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UsuarioResponseDto {
     private String nome;
     private String email;

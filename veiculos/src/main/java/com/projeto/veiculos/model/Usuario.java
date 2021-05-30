@@ -1,9 +1,7 @@
 package com.projeto.veiculos.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     @Pattern(regexp = "^[0-9]{11}$", message = "Cpf deve conter apenas numeros")
     private String cpf;
-    @Column(nullable = false) @Past
+    @Column(nullable = false) @Past (message = "A data de nascimento deve ser anterior a data atual")
     private LocalDate dataNascimento;
     @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> veiculos;
@@ -62,4 +60,6 @@ public class Usuario {
     public List<Veiculo> getVeiculos() {
         return veiculos;
     }
+
+
 }
