@@ -1,4 +1,4 @@
-package com.projeto.veiculos.servico;
+package com.projeto.veiculos.externo;
 
 import com.projeto.veiculos.dto.MarcasModelosDto;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -20,8 +20,8 @@ public interface Fipe {
 
             @GetMapping("{tipoVeiculo}/marcas/{codigoMarca}/modelos/{codigoModelo}/anos/{ano}")
             FipeResponse buscaDadosFipe(@PathVariable("tipoVeiculo") String tipoVeiculo,
-                                           @PathVariable("codigoMarca") String codigoMarca,
-                                           @PathVariable("codigoModelo") String codigoModelo,
-                                           @PathVariable("ano") String ano);
+                                        @PathVariable("codigoMarca") String codigoMarca,
+                                        @PathVariable("codigoModelo") String codigoModelo,
+                                        @PathVariable("ano") String ano);
 
 }

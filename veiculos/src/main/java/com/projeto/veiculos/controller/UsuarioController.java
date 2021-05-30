@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.net.URI;
@@ -24,6 +25,7 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> Adicionar(@Valid @RequestBody UsuarioRequestDto form, UriComponentsBuilder uriBuilder){
 
         if(!form.getCpf().matches("^[0-9]{11}$")){

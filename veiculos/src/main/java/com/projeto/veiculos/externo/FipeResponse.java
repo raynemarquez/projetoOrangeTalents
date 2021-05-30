@@ -1,4 +1,4 @@
-package com.projeto.veiculos.servico;
+package com.projeto.veiculos.externo;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 

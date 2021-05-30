@@ -1,15 +1,13 @@
 package com.projeto.veiculos.controller;
 
-import com.projeto.veiculos.dto.MarcasModelosDto;
 import com.projeto.veiculos.dto.VeiculoRequestDto;
 import com.projeto.veiculos.dto.VeiculoResponseDto;
-import com.projeto.veiculos.externo.Combustivel;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 import com.projeto.veiculos.repository.UsuarioRepository;
 import com.projeto.veiculos.repository.VeiculoRepository;
-import com.projeto.veiculos.servico.Fipe;
-import com.projeto.veiculos.servico.FipeResponse;
+import com.projeto.veiculos.externo.Fipe;
+import com.projeto.veiculos.externo.FipeResponse;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -38,6 +37,7 @@ public class VeiculoController {
     private String numCombustivel;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> Adicionar(@Valid @RequestBody VeiculoRequestDto form, UriComponentsBuilder uriBuilder) {
 
         numCombustivel = buscaNumCombustivel(form.getCombustivel());
