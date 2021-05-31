@@ -35,6 +35,7 @@ public class Problema {
             this.mensagem = mensagem;
         }
     }
+
     public Integer getStatus() {
         return status;
     }

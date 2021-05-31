@@ -2,7 +2,7 @@ package com.projeto.veiculos.externo;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public class FipeResponse {
+public class FipeResponseDto {
     /*
         Valor: "R$ 99.197,00"
         Marca: "VW - VolksWagen"
@@ -14,7 +14,6 @@ public class FipeResponse {
         TipoVeiculo: 1
         SiglaCombustivel: "D"
      */
-
     @JsonAlias("Valor")
     private String valor;
     @JsonAlias("Marca")
@@ -46,9 +45,7 @@ public class FipeResponse {
         return modelo;
     }
 
-    public String getAnoModelo() {
-        return anoModelo;
-    }
+    public String getAnoModelo() {return anoModelo;}
 
     public String getCombustivel() {
         return combustivel;

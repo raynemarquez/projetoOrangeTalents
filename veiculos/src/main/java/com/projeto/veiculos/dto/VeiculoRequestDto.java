@@ -3,7 +3,6 @@ package com.projeto.veiculos.dto;
 import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

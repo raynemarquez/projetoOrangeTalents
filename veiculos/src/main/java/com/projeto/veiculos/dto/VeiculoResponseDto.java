@@ -1,6 +1,5 @@
 package com.projeto.veiculos.dto;
 
-import com.projeto.veiculos.model.Usuario;
 import com.projeto.veiculos.model.Veiculo;
 
 import java.time.DayOfWeek;

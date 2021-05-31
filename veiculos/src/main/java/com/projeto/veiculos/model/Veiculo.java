@@ -1,10 +1,6 @@
 package com.projeto.veiculos.model;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Year;
-import java.util.Date;
 
 @Entity
 public class Veiculo {
@@ -15,21 +11,14 @@ public class Veiculo {
     @Column(nullable = false)
     private String marca;
     @Column(nullable = false)
-//    private String codigoMarca;
-//    @Column(nullable = false)
     private String modelo;
-//  @Column(nullable = false)
-//  private String codigoModelo;
     @Column(nullable = false)
     private Integer ano;
-//    @Column(nullable = false)
-//    private String codigoAno;
     @Column(nullable = false)
     private String valor;
     @Column(nullable = false)
     private String combustivel;
     @ManyToOne
-    //@JoinColumn(name="proprietario_id", nullable=false)
     private Usuario proprietario;
 
 
@@ -74,5 +63,7 @@ public class Veiculo {
     public String getValor() {
         return valor;
     }
+
+
 
 }

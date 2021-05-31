@@ -11,7 +11,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
