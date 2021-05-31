@@ -17,11 +17,9 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true, nullable = false)
-    ///\d{3}\.?\d{3}\.?\d{3}-?\d{2}/
-    @Pattern(regexp = "^[0-9]{11}$", message = "Cpf deve conter apenas numeros")
     private String cpf;
     @Column(nullable = false)
-    @Past (message = "A data de nascimento deve ser anterior a data atual")
+
     private LocalDate dataNascimento;
     @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> veiculos;

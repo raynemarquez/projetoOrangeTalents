@@ -27,10 +27,6 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<?> Adicionar(@Valid @RequestBody UsuarioRequestDto form, UriComponentsBuilder uriBuilder){
 
-        if(!form.getCpf().matches("^[0-9]{11}$")){
-            return ResponseEntity.badRequest().body("CPF deverá conter somente numeros");
-        }
-
         Usuario usuario = form.toUsuario();
         if (usuarioRepository.existsByCpf(usuario.getCpf())){
             return ResponseEntity.badRequest().body("Já existe esse CPF cadastrado");
